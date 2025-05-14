@@ -18,3 +18,4 @@ def run_all(input_path, output_path):
             for version in versions:
                 score = score_response(prompt, version)
                 writer.writerow([prompt, orig_sentence, version, score])
+ 
