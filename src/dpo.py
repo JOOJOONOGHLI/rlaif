@@ -1,7 +1,43 @@
-import tqdm
+from tqdm import tqdm
 import json
 from score_response import score_response
 from generate_versions_gemini import generate_versions
+import pandas as pd
+
+# Modify this function to use LLaMA instead of GPT-4
+def generate_llama_response(prompt):
+    """Generate a response using a smaller model for testing the pipeline."""
+    from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+    
+    # Using a much smaller model for testing
+    model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+    
+    try:
+        # Create a text generation pipeline
+        generator = pipeline('text-generation', 
+                           model=model_name,
+                           torch_dtype='auto',
+                           device_map='auto')
+        
+        # Generate text
+        system_msg = "You are a helpful assistant."
+        prompt_text = f"{system_msg}\n\nUser: {prompt}\n\nAssistant:"
+        
+        result = generator(prompt_text, 
+                         max_new_tokens=256, 
+                         do_sample=True,
+                         temperature=0.7,
+                         top_p=0.9)
+        
+        # Extract just the assistant's response
+        response = result[0]['generated_text']
+        assistant_response = response.split("Assistant:")[-1].strip()
+        return assistant_response
+    
+    except Exception as e:
+        print(f"Error generating response: {e}")
+        # Fallback to a simple response
+        return "I'm sorry, I couldn't generate a proper response."
 
 def create_dpo_dataset(prompts, responses_per_prompt=1, perturbations_per_response=3):
     """
@@ -24,7 +60,7 @@ def create_dpo_dataset(prompts, responses_per_prompt=1, perturbations_per_respon
             
             # Score all responses (original + perturbations)
             all_responses = [original_response] + perturbed_versions
-            scores = [score_response(prompt, resp) for resp in all_responses]
+            scores = [score_response(prompt, original_response, resp) for resp in all_responses]
             
             # Find the best and worst responses
             best_idx = scores.index(max(scores))
