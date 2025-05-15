@@ -4,7 +4,7 @@ from generate_response import generate_response
 import nltk
 
 
-prompt = "Come up with a good reason for why Hernan Cortes burned his ships when arriving at the Americas."
+prompt = "Explain who Leland Stanford Junior was and why he was significant to Silicon Valley."
 
 # Generate the base response
 response = generate_response(prompt)
