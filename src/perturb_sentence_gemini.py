@@ -19,7 +19,7 @@ def perturb_sentence(sentence):
 
     Original Sentence:"{sentence}"
 
-    Perturb it slightly so it becomes less or more helpful, or more or less vauge or misleading:
+    Perturb it slightly so it becomes less or more helpful, or more or less vauge or misleading. Respond only with the perturbed response, no additional text.
     """
 
     completion = client.chat.completions.create(

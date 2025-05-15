@@ -16,7 +16,7 @@ perturbed_versions, original_sentence = generate_versions(response, 3)
 # Score each perturbed version
 print("\nScoring perturbed versions:")
 for i, version in enumerate(perturbed_versions, 1):
-    score = score_response(prompt, version)  # Score the perturbed version, not the original
+    score = score_response(prompt, response, version)  # Score the perturbed version, not the original
     print(f"\nVersion {i}:")
     print(f"Response: {version}")
     print(f"Score: {score}")
