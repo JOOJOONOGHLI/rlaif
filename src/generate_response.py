@@ -1,13 +1,16 @@
 from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
-client = OpenAI()
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def generate_response(prompt):
     """
     Generate a base response to an instruction using GPT-4.
     Replace GPT-4 with your own LLaMA model inference if needed.
     """
-    system_msg = "You are a helpful, concise assistant that follows instructions carefully."
+    system_msg = "You are a helpful, concise assistant that follows instructions carefully. Words are as valuable as gold."
 
     response = client.chat.completions.create(
         model="gpt-4",

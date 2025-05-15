@@ -1,6 +1,6 @@
 import json
 import csv
-from .generate_versions import generate_versions
+from .generate_versions_gemini import generate_versions
 from .score_response import score_response
 
 def run_all(input_path, output_path):

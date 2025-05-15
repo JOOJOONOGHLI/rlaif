@@ -1,6 +1,7 @@
 import random
+import nltk
 from nltk.tokenize import sent_tokenize
-from .perturb_sentence import perturb_sentence
+from perturb_sentence_gemini import perturb_sentence
 
 def generate_versions(response, num_versions=3):
     sentences = sent_tokenize(response)

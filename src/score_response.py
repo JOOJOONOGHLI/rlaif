@@ -1,5 +1,9 @@
 from openai import OpenAI
-client = OpenAI()
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def score_response(prompt, response):
     system_msg = "You are evaluating the helpfulness, accuracy, and clarity of the response on a scale from -1 (very poor) to 1 (very helpful)."
