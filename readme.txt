@@ -7,6 +7,12 @@ Dhruv:
 - Pipeline finished for DPO, need to evaluate the results
 
 
+Next steps:
+- update the DPO pipeline
+- run on larger datasets
+- display an analysis of results
+
+
 Main Issues from Feedback
 The example in the document is hard to understand; all three responses look too similar.
 
